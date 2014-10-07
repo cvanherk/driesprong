@@ -1,1 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="delete_horse.aspx.cs" Inherits="AspNetDataHandler.Managing.delete_horse" %>

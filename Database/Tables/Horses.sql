@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[Horses]
-(
-	[RecordGUID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT (newid()), 
-    [Name] VARCHAR(50) NOT NULL, 
-    [Remark] VARCHAR(MAX) NOT NULL DEFAULT ''
-)
