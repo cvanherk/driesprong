@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[User]
+(
+	[RecordGUID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT (newid()), 
+    [Username] VARCHAR(20) NOT NULL, 
+    [Password] VARCHAR(120) NOT NULL
+)
