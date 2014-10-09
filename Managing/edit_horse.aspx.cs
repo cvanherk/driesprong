@@ -28,7 +28,7 @@ namespace AspNetDataHandler.Managing
                 {
                     var result = db.ExecuteQueryWithResult(@"SELECT [Name]
       ,[Remark]
-  FROM [AspNetDataHandler].[dbo].[Horses] WHERE RecordGUID = @guid", new Dictionary<string, string> {{"guid", _recordGuid.ToString("N")}});
+  FROM [AspNetDataHandler].[dbo].[Horses] WHERE RecordGUID = @guid", new Dictionary<string, object> {{"guid", _recordGuid }});
 
                     if (result.Rows.Count == 0)
                         return;
@@ -78,7 +78,7 @@ namespace AspNetDataHandler.Managing
            ([Name]
            ,[Remark])
      VALUES
-           (@name, @remark)", new Dictionary<string, string> { { "name", NameTextBox.Text }, { "remark", RemarkTextBox.Text } }
+           (@name, @remark)", new Dictionary<string, object> { { "name", NameTextBox.Text }, { "remark", RemarkTextBox.Text } }
                     
                 );
                 }

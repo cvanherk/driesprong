@@ -18,7 +18,7 @@ namespace AspNetDataHandler.Managing
             
             using (var db = new Database())
             {
-                db.ExecuteNonResultQuery("DELETE FROM [dbo].[Horses] WHERE RecordGUID = @guid", new Dictionary<string, string> {{ "guid", guid.ToString("N")}});
+                db.ExecuteNonResultQuery("DELETE FROM [dbo].[Horses] WHERE RecordGUID = @guid", new Dictionary<string, object> {{ "guid", guid }});
             }
         }
     }

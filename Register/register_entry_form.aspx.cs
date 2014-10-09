@@ -17,19 +17,14 @@ namespace AspNetDataHandler.Register
 {
     public partial class register : System.Web.UI.Page
     {
-        private static bool _formSended;
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (IsPostBack)
             {
-                if (_formSended)
-                {
-                    Response.Redirect("/index.aspx");
-                }
                 return;
             }
+
             using (var db = new Database())
             {
                 var result = db.ExecuteQueryWithResult("SELECT [RecordGUID], [Name] FROM [AspNetDataHandler].[dbo].[Horses]");
@@ -156,13 +151,13 @@ namespace AspNetDataHandler.Register
            ,[ref_Horse1]
            ,[ref_Horse2]
            ,[ref_Horse3])
-     VALUES (@name, @phone, @horse1, @horse2, @horse3)", new Dictionary<string, string>
+     VALUES (@name, @phone, @horse1, @horse2, @horse3)", new Dictionary<string, object>
                     {
                         {"name", NameTextBox.Text},
                         {"phone", PhoneNumberBox.Text},
-                        {"horse1", horse1DropDownList.SelectedItem.Value},
-                        {"horse2", horse2DropDownList.SelectedItem.Value},
-                        {"horse3", horse3DropDownList.SelectedItem.Value}
+                        {"horse1", Guid.Parse(horse1DropDownList.SelectedItem.Value)},
+                        {"horse2", Guid.Parse(horse2DropDownList.SelectedItem.Value)},
+                        {"horse3", Guid.Parse(horse3DropDownList.SelectedItem.Value)}
                     });
                 }
 
@@ -177,15 +172,22 @@ namespace AspNetDataHandler.Register
 
         private void IndexChanged(DropDownList dropDownList)
         {
+            if (dropDownList == null) 
+                throw new ArgumentNullException("dropDownList");
+
+
             if (String.IsNullOrEmpty(dropDownList.SelectedItem.Value))
+            {
+                RemarkTextBox.Visible = false;
                 return;
+            }
 
             using (var db = new Database())
             {
                 var result =
                     db.ExecuteQueryWithResult(
                         "SELECT [Remark] FROM [AspNetDataHandler].[dbo].[Horses] WHERE RecordGUID = @guid",
-                        new Dictionary<string, string> {{"guid", dropDownList.SelectedItem.Value}});
+                        new Dictionary<string, object> {{"guid", Guid.Parse(dropDownList.SelectedItem.Value)}});
 
                 var row = result.Rows[0];
 

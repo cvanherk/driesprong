@@ -29,7 +29,7 @@ namespace AspNetDataHandler.Functions.Database
             }
         }
 
-        public DataTable ExecuteQueryWithResult(string query, Dictionary<String, String> parameters = null )
+        public DataTable ExecuteQueryWithResult(string query, Dictionary<String, object> parameters = null )
         {
             var table = new DataTable();
 
@@ -48,13 +48,7 @@ namespace AspNetDataHandler.Functions.Database
                     {
                         foreach (var o in parameters)
                         {
-                            Guid guid;
-                            var val = Guid.TryParse(o.Value, out guid);
-
-                            if (val)
-                                sqlCommand.Parameters.AddWithValue(o.Key, guid );
-                            else
-                                sqlCommand.Parameters.AddWithValue(o.Key, o.Value);
+                            sqlCommand.Parameters.AddWithValue(o.Key, o.Value);
                         }
                     }
 
@@ -68,7 +62,7 @@ namespace AspNetDataHandler.Functions.Database
             return table;
         }
 
-        public void ExecuteNonResultQuery(string query, Dictionary<String, String> parameters = null)
+        public void ExecuteNonResultQuery(string query, Dictionary<String, object> parameters = null)
         {
             using (
     var connection =
@@ -84,13 +78,7 @@ namespace AspNetDataHandler.Functions.Database
                     {
                         foreach (var o in parameters)
                         {
-                            Guid guid;
-                            var val = Guid.TryParse(o.Value, out guid);
-
-                            if (val)
-                                sqlCommand.Parameters.AddWithValue(o.Key, guid);
-                            else
-                                sqlCommand.Parameters.AddWithValue(o.Key, o.Value);
+                            sqlCommand.Parameters.AddWithValue(o.Key, o.Value);
                         }
                     }
 
@@ -110,12 +98,12 @@ namespace AspNetDataHandler.Functions.Database
         {
 
             var record = ExecuteQueryWithResult("SELECT * FROM " + tableName + " WHERE RecordGUID = @guid",
-                new Dictionary<string, string> {{"guid", recordGuid.ToString("N")}});
+                new Dictionary<string, object> {{"guid", recordGuid }});
 
             record.ColumnChanged +=
                 (obj, args) =>
                     ExecuteNonResultQuery("UPDATE " + tableName + " SET [" + args.Column.ColumnName + "] = @value WHERE RecordGUID = @guid",
-                        new Dictionary<string, string> {{"value", args.ProposedValue.ToString()}, {"guid", recordGuid.ToString("N")}});
+                        new Dictionary<string, object> {{"value", args.ProposedValue }, {"guid", recordGuid }});
 
             return (record.Rows.Count == 0 ? null : record.Rows[0]);
         }

@@ -25,7 +25,7 @@ namespace AspNetDataHandler
 
             using (var db = new Database())
             {
-                var parameters = new Dictionary<String, String> {{"username", LoginControl.UserName}};
+                var parameters = new Dictionary<String, object> {{"username", LoginControl.UserName}};
                 var result = db.ExecuteQueryWithResult("SELECT * FROM [dbo].[User] WHERE Username = @username", parameters);
 
                 if (result.Rows.Count == 0)

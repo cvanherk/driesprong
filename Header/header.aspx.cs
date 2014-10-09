@@ -25,12 +25,10 @@ namespace AspNetDataHandler
             if (Session["RecordGUID"] is String)
                 return;
 
-            var guid = (Guid)Session["RecordGUID"];
-
             using (var db = new Database())
             {
                 var result = db.ExecuteQueryWithResult("SELECT [Username] FROM [AspNetDataHandler].[dbo].[User] WHERE RecordGUID = @guid",
-                    new Dictionary<string, string> { { "guid", guid.ToString("N") } });
+                    new Dictionary<string, object> { { "guid", Session["RecordGUID"] } });
 
                 if (result.Rows.Count == 0)
                 {

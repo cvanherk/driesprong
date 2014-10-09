@@ -15,7 +15,7 @@ namespace AspNetDataHandler.Functions.Application
             {
                 using (var db = new Database.Database())
                 {
-                    var parameters = new Dictionary<String, String> { { "guid", Guid.Parse((session["RecordGUID"].ToString())).ToString("N") } };
+                    var parameters = new Dictionary<String, object> { { "guid", session["RecordGUID"]} };
                     var result = db.ExecuteQueryWithResult("SELECT COUNT(RecordGUID) FROM  [AspNetDataHandler].[dbo].[User] WHERE RecordGUID = @guid", parameters);
 
                     var row = result.Rows[0];
