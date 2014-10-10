@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Buttons\accept.png" />
     <Content Include="Content\Images\corne met paard.jpg" />
     <Content Include="Header\header.aspx" />
     <Content Include="Header\loadheader.js" />
@@ -68,6 +69,7 @@
     <Content Include="login.aspx" />
     <Content Include="Managing\edit_horse.aspx" />
     <Content Include="Managing\managing.aspx" />
+    <Content Include="Managing\managing_entry_forms.aspx" />
     <Content Include="Managing\managing_horses.aspx" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -133,6 +135,13 @@
     </Compile>
     <Compile Include="Managing\managing.aspx.designer.cs">
       <DependentUpon>managing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Managing\managing_entry_forms.aspx.cs">
+      <DependentUpon>managing_entry_forms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Managing\managing_entry_forms.aspx.designer.cs">
+      <DependentUpon>managing_entry_forms.aspx</DependentUpon>
     </Compile>
     <Compile Include="Managing\managing_horses.aspx.cs">
       <DependentUpon>managing_horses.aspx</DependentUpon>

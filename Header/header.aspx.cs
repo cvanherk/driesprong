@@ -45,7 +45,7 @@ namespace AspNetDataHandler
             return IsLoggedIn ? String.Format(@"
 <div style=""color: red;"">
     Welkom: {0} <a href=""/index.aspx"">Corne corporation</a>
-</div> <a href=""/logout.aspx"">Logout</a>", Username) 
+</div> <a href=""/logout.aspx"">Logout</a>", HttpUtility.HtmlEncode(Username)) 
                 : 
 @"<a href=""/index.aspx"">Corne corporation</a>";
         }

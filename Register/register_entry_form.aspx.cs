@@ -175,7 +175,6 @@ namespace AspNetDataHandler.Register
             if (dropDownList == null) 
                 throw new ArgumentNullException("dropDownList");
 
-
             if (String.IsNullOrEmpty(dropDownList.SelectedItem.Value))
             {
                 RemarkTextBox.Visible = false;

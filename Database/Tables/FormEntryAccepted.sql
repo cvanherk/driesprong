@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[FormEntryAccepted]
+(
+	[RecordGUID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT (newid()), 
+	[Name] VARCHAR(50) NOT NULL,
+    [Phone] VARCHAR(12) NOT NULL, 
+	[ref_Horse] UNIQUEIDENTIFIER NOT NULL,
+	CONSTRAINT FK_ref_Horse FOREIGN KEY ([ref_Horse]) REFERENCES Horses(RecordGUID)
+)
