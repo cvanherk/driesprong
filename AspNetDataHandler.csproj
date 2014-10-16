@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Functions\Application\ApplicationFunctions.cs" />
+    <Compile Include="App_Code\Functions\Application\ApplicationGlobals.cs" />
     <Compile Include="App_Code\Functions\Database\Database.cs" />
     <Compile Include="Header\header.aspx.cs">
       <DependentUpon>header.aspx</DependentUpon>

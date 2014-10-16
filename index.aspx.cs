@@ -6,6 +6,7 @@ using System.Media;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AspNetDataHandler.Functions.Application;
 using AspNetDataHandler.Functions.Database;
 
 namespace AspNetDataHandler
@@ -19,6 +20,7 @@ namespace AspNetDataHandler
                 var record = db.GotoRecord("[AspNetDataHandler].[dbo].[FormEntry]",
                     Guid.Parse("2764CBCD-F3CB-464F-8D35-4D87D5694C00"));
                 
+                ApplicationFunctions.PlayAudio(audioplayer, (byte[])record["Music"], (Guid)record["RecordGUID"]);
             }
 		}
     }

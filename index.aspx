@@ -21,8 +21,6 @@
     <p>Welkom op de website</p>
     <img src="/Content/Images/corne met paard.jpg" />
     
-    <audio runat="server" ID="audioplayer">
-        
-    </audio>
+    <embed height="0" width="0" runat="server" id="audioplayer" />
 </body>
 </html>

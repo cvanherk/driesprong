@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI.HtmlControls;
+using AspNetDataHandler.Functions.Application;
 
 namespace AspNetDataHandler.Functions.Application
 {
@@ -22,13 +24,12 @@ namespace AspNetDataHandler.Functions.Application
 
                     var row = result.Rows[0];
 
-                    if (row[0].Equals(0))
-                    {
-                        if (!ajaxRequest)
-                            response.Redirect("/login.aspx");
-                        else
-                            response.Write("Not logged in");
-                    }
+                    if (!row[0].Equals(0)) 
+                        return;
+                    if (!ajaxRequest)
+                        response.Redirect("/login.aspx");
+                    else
+                        response.Write("Not logged in");
                 }
             }
             else
@@ -40,10 +41,32 @@ namespace AspNetDataHandler.Functions.Application
             }
         }
 
-        public static void PlayAudio(HtmlAudio audioController, byte[] bytes)
+        //Bestaat audio al? Dan wordt die alleen geladen.
+        public static void PlayAudio(HtmlEmbed audioController, byte[] bytes, Guid recordGuid)
         {
-            var tempFolder = Path.GetTempPath();
-            //Niet af
+            const string tempPath = ApplicationGlobals.TempPath;
+            var directory = tempPath + recordGuid.ToString("N");
+            if (!Directory.Exists(HttpContext.Current.Server.MapPath(directory)))
+            {
+                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(directory));
+            }
+
+            var file = directory + "/music.mp3";
+
+            if (File.Exists(HttpContext.Current.Server.MapPath(file)))
+            {
+                audioController.Src = file;
+                return;
+            }
+
+            using (var filestream = File.Create(HttpContext.Current.Server.MapPath(file)))
+            {
+                foreach (var b in bytes)
+                    filestream.WriteByte(b);
+            }
+
+            audioController.Src = file;
+
         }
 
         public static void Alert(HttpResponse response, string message)
