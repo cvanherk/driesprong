@@ -33,8 +33,9 @@
                     $(this).removeClass('hoverAcceptButton');
                 });
 
-                $buttonAccept.click(function() {
-                    alert();
+                $buttonAccept.click(function (data) {
+                    alert(data.currentTarget.getAttribute('guid'));
+                    var $inputs = $(this).closest('tr').find(":input"); 
                 });
             </script>
         </div>

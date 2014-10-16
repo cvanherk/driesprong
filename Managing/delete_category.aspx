@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="delete_category.aspx.cs" Inherits="AspNetDataHandler.Managing.delete_category" %>

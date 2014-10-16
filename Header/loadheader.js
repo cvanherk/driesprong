@@ -3,5 +3,3 @@
     async: false
 });
 $('#header').load('/Header/header.aspx');
-
-$('')

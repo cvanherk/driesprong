@@ -64,7 +64,7 @@
             </tr>
             <tr>
                 <td>
-                    <div id="button" url="/Managing/managing_classes.aspx">
+                    <div id="button" url="/Managing/managing_categorys.aspx">
                         Klassen beheren
                     </div>
                 </td>

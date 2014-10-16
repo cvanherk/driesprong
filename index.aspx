@@ -20,5 +20,9 @@
     
     <p>Welkom op de website</p>
     <img src="/Content/Images/corne met paard.jpg" />
+    
+    <audio runat="server" ID="audioplayer">
+        
+    </audio>
 </body>
 </html>

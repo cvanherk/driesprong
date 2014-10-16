@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
 using System.Web.SessionState;
+using System.Web.UI.HtmlControls;
 
 namespace AspNetDataHandler.Functions.Application
 {
@@ -36,6 +38,12 @@ namespace AspNetDataHandler.Functions.Application
                 else
                     response.Write("Not logged in");
             }
+        }
+
+        public static void PlayAudio(HtmlAudio audioController, byte[] bytes)
+        {
+            var tempFolder = Path.GetTempPath();
+
         }
 
         public static void Alert(HttpResponse response, string message)

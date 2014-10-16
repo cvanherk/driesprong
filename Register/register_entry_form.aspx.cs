@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -65,13 +67,54 @@ namespace AspNetDataHandler.Register
                     horse2DropDownList.Items.Add(item);
                     horse3DropDownList.Items.Add(item);
                 }
+
+                result = db.ExecuteQueryWithResult(@"SELECT [RecordGUID]
+      ,[Name]
+  FROM [AspNetDataHandler].[dbo].[Category]");
+
+                if (result.Rows.Count != 0)
+                {
+                    if (!IsPostBack)
+                    {
+                        item = new ListItem
+                        {
+                            Text = "Kies een klasse...",
+                            Value = "",
+                            Selected = true
+                        };
+                        KlasseDropDownList.Items.Add(item);
+                    }
+                    foreach (DataRow row in result.Rows)
+                    {
+                        var guid = (Guid) row["RecordGUID"];
+                        item = new ListItem
+                        {
+                            Text = (string) row["Name"],
+                            Value = guid.ToString("N")
+                        };
+
+                        if (IsPostBack)
+                            continue;
+
+                        KlasseDropDownList.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    item = new ListItem
+                    {
+                        Text = "Er zijn geen klasses beschikbaar"
+                    };
+                    
+                    if (!IsPostBack) 
+                        KlasseDropDownList.Items.Add(item);
+                }
             }
         }
 
         protected void Inschrijven_OnClick(object sender, EventArgs e)
         {
             NameTextBox.BackColor = Color.White;
-            PhoneNumberBox.BackColor = Color.White;
             horse1DropDownList.BackColor = Color.White;
             horse2DropDownList.BackColor = Color.White;
             horse3DropDownList.BackColor = Color.White;
@@ -84,22 +127,11 @@ namespace AspNetDataHandler.Register
                 return;
             }
 
-            if (!Regex.IsMatch(PhoneNumberBox.Text, "^[0-9]*$"))
+            if (String.IsNullOrEmpty(KlasseDropDownList.SelectedItem.Value))
             {
-                if (String.IsNullOrEmpty(PhoneNumberBox.Text))
-                {
-                    ApplicationFunctions.Alert(Response, "In de telefoon nummer is alleen nummers toegestaan!");
-                    PhoneNumberBox.BackColor = Color.Orange;
-                    PhoneNumberBox.Focus();
-                    return;
-                }
-            }
-
-            if (PhoneNumberBox.Text.Length < 10)
-            {
-                ApplicationFunctions.Alert(Response, "Een telefoon nummer heeft minimaal 10 cijfers!");
-                PhoneNumberBox.BackColor = Color.Orange;
-                PhoneNumberBox.Focus();
+                ApplicationFunctions.Alert(Response, "Je moet een klasse kiezen!");
+                KlasseDropDownList.BackColor = Color.Orange;
+                KlasseDropDownList.Focus();
                 return;
             }
 
@@ -141,24 +173,44 @@ namespace AspNetDataHandler.Register
                 return;
             }
 
+            if (FileUploader.HasFile)
+            {
+                var extension = Path.GetExtension(FileUploader.FileName);
+                if (extension != null && !extension.ToLower().Equals(".mp3"))
+                {
+                    FileUploader.Focus();
+                    ApplicationFunctions.Alert(Response, "Je moet een muziek bestand van het type .MP3 uploaden!");
+                    return;
+                }
+            }
+
             try
             {
                 using (var db = new Database())
                 {
-                    db.ExecuteNonResultQuery(@"INSERT INTO [AspNetDataHandler].[dbo].[FormEntry]
+
+                    using (var stream = FileUploader.FileContent)
+                    {
+                        var mp3Bytes = new byte[FileUploader.FileContent.Length];
+                        stream.Read(mp3Bytes, 0, mp3Bytes.Length);
+
+                        db.ExecuteNonResultQuery(@"INSERT INTO [AspNetDataHandler].[dbo].[FormEntry]
            ([Name]
-           ,[Phone]
+           ,[ref_Category]
            ,[ref_Horse1]
            ,[ref_Horse2]
-           ,[ref_Horse3])
-     VALUES (@name, @phone, @horse1, @horse2, @horse3)", new Dictionary<string, object>
-                    {
-                        {"name", NameTextBox.Text},
-                        {"phone", PhoneNumberBox.Text},
-                        {"horse1", Guid.Parse(horse1DropDownList.SelectedItem.Value)},
-                        {"horse2", Guid.Parse(horse2DropDownList.SelectedItem.Value)},
-                        {"horse3", Guid.Parse(horse3DropDownList.SelectedItem.Value)}
-                    });
+           ,[ref_Horse3]
+           ,[Music])
+     VALUES (@name, @category, @horse1, @horse2, @horse3, @music)", new Dictionary<string, object>
+                        {
+                            {"name", NameTextBox.Text},
+                            {"category", Guid.Parse(KlasseDropDownList.SelectedItem.Value)},
+                            {"horse1", Guid.Parse(horse1DropDownList.SelectedItem.Value)},
+                            {"horse2", Guid.Parse(horse2DropDownList.SelectedItem.Value)},
+                            {"horse3", Guid.Parse(horse3DropDownList.SelectedItem.Value)},
+                            {"music", FileUploader.HasFile ? (object)mp3Bytes : -1 }
+                        });
+                    }
                 }
 
                 Response.Redirect("/Register/register_entry_form_completed.aspx");

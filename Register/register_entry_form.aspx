@@ -42,19 +42,16 @@
                         <td>
                             <asp:TextBox Width="170" ID="NameTextBox" runat="server"></asp:TextBox>
                         </td>
-                        <td>
-                            (Ongeldige namen worden niet meegerekent!)
-                        </td>
                     </tr>
                     <tr>
                         <td>
-                            Telefoon
+                            Klasse
                         </td>
                         <td>
                             :
                         </td>
                         <td>
-                            <asp:TextBox Width="170" ID="PhoneNumberBox" runat="server" ></asp:TextBox>
+                            <asp:DropDownList AutoPostBack="true" Width="170" ID="KlasseDropDownList" runat="server"/>
                         </td>
                     </tr>
                     <tr>
@@ -99,7 +96,18 @@
                             
                         </td>
                         <td>
-                            <asp:TextBox Visible="False" Height="100" Width="170" ID="RemarkTextBox" TextMode="MultiLine" runat="server"></asp:TextBox>
+                            <asp:TextBox Visible="False" Height="100" Width="170" ID="RemarkTextBox" TextMode="MultiLine" ReadOnly="True" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            MP3
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <asp:FileUpload ID="FileUploader"  runat="server" />
                         </td>
                     </tr>
                     <tr>

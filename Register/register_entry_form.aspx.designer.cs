@@ -31,13 +31,13 @@ namespace AspNetDataHandler.Register {
         protected global::System.Web.UI.WebControls.TextBox NameTextBox;
         
         /// <summary>
-        /// PhoneNumberBox control.
+        /// KlasseDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PhoneNumberBox;
+        protected global::System.Web.UI.WebControls.DropDownList KlasseDropDownList;
         
         /// <summary>
         /// horse1DropDownList control.
@@ -74,6 +74,15 @@ namespace AspNetDataHandler.Register {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox RemarkTextBox;
+        
+        /// <summary>
+        /// FileUploader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUploader;
         
         /// <summary>
         /// Inschrijven control.
