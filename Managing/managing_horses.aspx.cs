@@ -25,7 +25,7 @@ namespace AspNetDataHandler
             {
                 result = db.ExecuteQueryWithResult("SELECT [RecordGUID], [Name] FROM [AspNetDataHandler].[dbo].[Horses] ORDER BY Name");
             }
-
+           
             return result.Rows.Cast<DataRow>().Aggregate("", (current, o) => current + String.Format(@"
 <tr>
     <td id=""horseItem"" guid=""{1}"" style=""width: 310px; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-top: 1px solid black;"">
