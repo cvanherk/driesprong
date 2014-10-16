@@ -43,8 +43,7 @@ namespace AspNetDataHandler.Functions.Application
         public static void PlayAudio(HtmlAudio audioController, byte[] bytes)
         {
             var tempFolder = Path.GetTempPath();
-            //Niet af, wel af groetjes alex
-            //fdoinfisdonfdiosnfiosdnfiodsnfiodnsfiodsnionionio
+            //Niet af
         }
 
         public static void Alert(HttpResponse response, string message)
