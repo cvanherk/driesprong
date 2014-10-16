@@ -44,6 +44,7 @@ namespace AspNetDataHandler.Functions.Application
         {
             var tempFolder = Path.GetTempPath();
             //Niet af, wel af groetjes alex
+            //Nog een aanpassing
 
         }
 
