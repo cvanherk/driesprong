@@ -8,6 +8,6 @@ namespace AspNetDataHandler.Functions.Application
     public class ApplicationGlobals
     {
         //Temp pad van o.a afspelen muziek.
-        public const string TempPath = "/Content/Temp/test/";
+        public const string TempPath = "/Content/Temp/";
     }
 }

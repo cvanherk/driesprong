@@ -15,13 +15,6 @@ namespace AspNetDataHandler
     {
         protected void Page_Load(object sender, EventArgs e)
 		{
-            using (var db = new Database())
-            {
-                var record = db.GotoRecord("[AspNetDataHandler].[dbo].[FormEntry]",
-                    Guid.Parse("2764CBCD-F3CB-464F-8D35-4D87D5694C00"));
-                
-                ApplicationFunctions.PlayAudio(audioplayer, (byte[])record["Music"], (Guid)record["RecordGUID"]);
-            }
 		}
     }
 }

@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AudioPlayer\audioplayer.aspx" />
     <Content Include="Content\Images\Buttons\accept.png" />
     <Content Include="Content\Images\corne met paard.jpg" />
     <Content Include="Header\header.aspx" />
@@ -88,6 +89,13 @@
     <Compile Include="App_Code\Functions\Application\ApplicationFunctions.cs" />
     <Compile Include="App_Code\Functions\Application\ApplicationGlobals.cs" />
     <Compile Include="App_Code\Functions\Database\Database.cs" />
+    <Compile Include="AudioPlayer\audioplayer.aspx.cs">
+      <DependentUpon>audioplayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AudioPlayer\audioplayer.aspx.designer.cs">
+      <DependentUpon>audioplayer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Header\header.aspx.cs">
       <DependentUpon>header.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -15,6 +15,15 @@ namespace AspNetDataHandler.Managing
         protected void Page_Load(object sender, EventArgs e)
         {
             ApplicationFunctions.ValidateUser(Response, Session, Request.Url.AbsolutePath);
+
+            /*using (var db = new Database())
+            {
+                var record = db.GotoRecord("[AspNetDataHandler].[dbo].[FormEntry]",
+                    Guid.Parse("2764CBCD-F3CB-464F-8D35-4D87D5694C00"));
+
+                ApplicationFunctions.SetAudio(audioplayer, (byte[]) record["Music"], (Guid) record["RecordGUID"], true);
+            }*/
+
         }
 
         public string RenderQueueTable()
@@ -36,24 +45,27 @@ FROM            FormEntry INNER JOIN
                 foreach (DataRow record in result.Rows)
                 {
                     str += String.Format(@"
-                <tr>
+                <tr guid=""{9}"">
                     <td>
-                        Naam: <b>{0}</b>
+                        <b>{0}</b>
                     </td>
                     <td>
-                        Klasse: <b>{1}</b>
+                        <b>{1}</b>
                     </td>
                     <td>
-                        Paard 1: <b>{2}</b> <input type=""radio"" name=""row_{3}"" value=""{4}"">
+                        <b>{2}</b> <input type=""radio"" name=""row_{3}"" value=""{4}"">
                     </td>
                     <td>
-                        Paard 2: <b>{5}</b> <input type=""radio"" name=""row_{3}"" value=""{6}"">
+                        <b>{5}</b> <input type=""radio"" name=""row_{3}"" value=""{6}"">
                     </td>
                     <td>
-                        Paard 3: <b>{7}</b> <input type=""radio"" name=""row_{3}"" value=""{8}"">
+                        <b>{7}</b> <input type=""radio"" name=""row_{3}"" value=""{8}"">
                     </td>
                     <td>
-                        <img id=""buttonAccept"" src=""/Content/Images/Buttons/accept.png"" guid=""{9}""/>
+                        <div style=""cursor: pointer;"" id=""playpause"">Play</div>
+                    </td>
+                    <td>
+                        <img id=""buttonAccept"" src=""/Content/Images/Buttons/accept.png"" />
                     </td>
                 </tr>", HttpUtility.HtmlEncode(record["Name"]), HttpUtility.HtmlEncode(record["CategoryName"]), HttpUtility.HtmlEncode(record["Horse1Name"]), i, 
                       record["ref_Horse1"], HttpUtility.HtmlEncode(record["Horse2Name"]), record["ref_Horse2"], HttpUtility.HtmlEncode(record["Horse3Name"]), record["ref_Horse3"], record["RecordGUID"]);

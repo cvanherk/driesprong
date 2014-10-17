@@ -55,6 +55,7 @@ namespace AspNetDataHandler.Functions.Application
 
             if (File.Exists(HttpContext.Current.Server.MapPath(file)))
             {
+
                 audioController.Src = file;
                 return;
             }
@@ -65,8 +66,14 @@ namespace AspNetDataHandler.Functions.Application
                     filestream.WriteByte(b);
             }
 
+
             audioController.Src = file;
 
+        }
+
+        public static void PauseAudio(HtmlEmbed audioController)
+        {
+            audioController.Src = String.Empty;
         }
 
         public static void Alert(HttpResponse response, string message)
